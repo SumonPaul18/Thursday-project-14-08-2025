@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar With Bootstrap</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar3.css') }}">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background for the body */
+        }
+        #sidebar {
+            background-color: #343a40; /* Sidebar color */
+            color: white; /* Sidebar text color */
+        }
+        .sidebar-link {
+            color: white; /* Sidebar link color */
+        }
+        .sidebar-link:hover {
+            background-color: #495057; /* Sidebar link hover color */
+        }
+        .navbar {
+            background-color: #343a40; /* Navbar color matching sidebar */
+        }
+        .navbar .nav-link, .navbar .navbar-brand {
+            color: white; /* Navbar text color */
+        }
+        .navbar .nav-link:hover {
+            color: #adb5bd; /* Navbar link hover color */
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .dropdown-menu {
+            min-width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button">
+                    <img src="{{ url_for('static', filename='images/clouds.png') }}" alt="Logo" class="img-fluid" style="max-width: 40px; height: auto;">
+                </button>
+                <div class="sidebar-logo">
+                    <a href="{{ url_for('index') }}">Paulco Cloud</a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                {% for item in sidebar_items %}
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link d-flex align-items-center sidebar-parent" data-bs-toggle="collapse" data-bs-target="#submenu-{{ loop.index }}">
+                        <img src="{{ url_for('static', filename=item.icon_url) }}" class="sidebar-icon" style="width:{{ item.icon_size }};height:{{ item.icon_size }};">
+                        <span class="sidebar-text ms-2">{{ item.name }}</span>
+                        {% if item.sub_items %}
+                          <span class="sidebar-arrow ms-auto">&#9662;</span>
+                        {% endif %}
+                    </a>
+                    {% if item.sub_items %}
+                      <ul class="sidebar-subnav collapse" id="submenu-{{ loop.index }}">
+                        {% for sub in item.sub_items %}
+                          <li class="sidebar-subitem">
+                            <a href="{{ url_for(sub.url) if sub.url else '#' }}" class="sidebar-link d-flex align-items-center">
+                              <img src="{{ url_for('static', filename=sub.icon_url) }}" class="sidebar-icon" style="width:{{ sub.icon_size }};height:{{ sub.icon_size }};">
+                              <span class="sidebar-text ms-2">{{ sub.name }}</span>
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                    <hr class="sidebar-divider">
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="sidebar-footer">
+                <a href="{{ url_for('logout') }}" class="sidebar-link"><i class="lni lni-exit"></i><span>Logout</span></a>
+            </div>
+        </aside>
+
+        <div class="main">
+            <nav class="navbar navbar-expand px-4 py-3">
+                <form action="#" class="d-none d-sm-inline-block me-3">
+                    <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
+
+                {% if current_user.is_authenticated %}
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a href="#" data-bs-toggle="dropdown" aria-expanded="false" class='nav-icon pe-md-0'>
+                                <img src="{{ current_user.profile_pic }}" class='avatar img-fluid' alt=''>
+                            </a>
+                            <div class='dropdown-menu dropdown-menu-end rounded'>
+                                <a class='dropdown-item' href="{{ url_for('profile') }}">Profile</a>
+                                <a class='dropdown-item' href="{{ url_for('settings') }}">Settings</a>
+                                <a class='dropdown-item' href="{{ url_for('logout') }}">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+            </nav>
+
+            <main class='content px-3 py-4'>
+                {% block content %}{% endblock %}
+            </main>
+
+            </div>
+
+    </div>
+
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL' crossorigin='anonymous'></script>
+
+    <script src="{{ url_for('static', filename='js/sidebar3.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section Orbital Animation</title>
+    <!-- Tailwind CSS CDN for modern styling and responsiveness -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* কাস্টম ফন্ট: ইন্টার */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: hidden; /* নিশ্চিত করে যে কোনো স্ক্রোলবার নেই */
+            background-color: #000; /* কালো ব্যাকগ্রাউন্ড */
+            color: #fff; /* সাদা টেক্সট */
+        }
+
+        /* হিরো সেকশন: বামে টেক্সট, ডানে অ্যানিমেশন */
+        .hero-section {
+            display: flex;
+            flex-direction: column; /* ছোট স্ক্রিনে কলাম লেআউট */
+            min-height: 100vh;
+            width: 100vw;
+            background: linear-gradient(to right, #0a0a0a, #000); /* হালকা গ্রেডিয়েন্ট */
+        }
+
+        @media (min-width: 768px) { /* মিডিয়াম স্ক্রিন এবং উপরের জন্য */
+            .hero-section {
+                flex-direction: row; /* বড় স্ক্রিনে সারি লেআউট */
+            }
+        }
+
+        /* বাম পাশের কন্টেন্ট: টাইটেল ও সাবটাইটেল */
+        .left-content {
+            flex: 1; /* উপলব্ধ স্থান গ্রহণ করবে */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 20; /* অ্যানিমেশনের উপরে থাকবে */
+            min-width: 300px; /* টেক্সট কন্টেন্টের জন্য ন্যূনতম প্রস্থ */
+        }
+
+        @media (min-width: 768px) {
+            .left-content {
+                align-items: flex-start; /* বামে সারিবদ্ধ */
+                text-align: left;
+                padding-left: 4rem;
+                flex-basis: 50%; /* উপলব্ধ প্রস্থের ৫০% নেবে */
+                max-width: 50%; /* খুব বেশি বড় হওয়া প্রতিরোধ করে */
+            }
+        }
+
+        .left-content .title {
+            font-size: 3rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #0ea5e9, #6366f1); /* নীল-বেগুনি গ্রেডিয়েন্ট */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .left-content .subtitle {
+            font-size: 1.25rem;
+            color: #a0a0a0;
+            max-width: 500px;
+        }
+
+        /* ডান পাশের অ্যানিমেশন কন্টেইনার */
+        .right-animation {
+            flex: 1; /* উপলব্ধ স্থান গ্রহণ করবে */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden; /* নিশ্চিত করে যে কক্ষপথ বাইরে না যায় */
+            min-height: 300px; /* ছোট স্ক্রিনে অ্যানিমেশনের জন্য ন্যূনতম উচ্চতা */
+        }
+
+        @media (min-width: 768px) {
+            .right-animation {
+                flex-basis: 50%; /* উপলব্ধ প্রস্থের ৫০% নেবে */
+                max-width: 50%; /* খুব বেশি বড় হওয়া প্রতিরোধ করে */
+                min-height: auto; /* বড় স্ক্রিনের জন্য ন্যূনতম উচ্চতা রিসেট */
+            }
+        }
+
+        /* অ্যানিমেশন কন্টেইনার যা সমস্ত কক্ষপথ এবং কেন্দ্রীয় ছবি ধারণ করবে */
+        .animation-container {
+            position: relative;
+            width: 100%; /* প্যারেন্টের প্রস্থের সাথে মানিয়ে নেবে */
+            height: 100%; /* প্যারেন্টের উচ্চতার সাথে মানিয়ে নেবে */
+            max-width: 700px; /* সর্বোচ্চ আকার */
+            max-height: 700px; /* সর্বোচ্চ আকার */
+            aspect-ratio: 1 / 1; /* বর্গাকার অনুপাত বজায় রাখবে */
+            display: grid;
+            place-items: center; /* কেন্দ্রীয়করণ */
+            padding: 50px; /* আইকন ওভারল্যাপ এড়াতে প্যাডিং আরও বাড়ানো হয়েছে */
+            box-sizing: border-box; /* প্যাডিং প্রস্থ/উচ্চতা গণনায় অন্তর্ভুক্ত */
+        }
+
+        /* কেন্দ্রীয় ছবি */
+        .central-image {
+            position: absolute;
+            width: min(28vw, 200px); /* আকার বাড়ানো হয়েছে */
+            height: min(28vw, 200px); /* আকার বাড়ানো হয়েছে */
+            border-radius: 50%; /* বৃত্তাকার */
+            object-fit: cover; /* ছবিকে ফ্রেমের মধ্যে ফিট করা */
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.7), 0 0 60px rgba(0, 255, 255, 0.3); /* উজ্জ্বল শ্যাডো */
+            border: 3px solid rgba(0, 255, 255, 0.5); /* হালকা বর্ডার */
+        }
+
+        /* প্রতিটি কক্ষপথের জন্য বেসিক স্টাইল */
+        .orbit {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* হালকা সাদা বর্ডার */
+            border-radius: 50%; /* বৃত্তাকার কক্ষপথ */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.05s ease-out; /* মসৃণ আকার পরিবর্তনের জন্য */
+        }
+
+        /* কক্ষপথে ঘোরার জন্য আইকন */
+        .orbiter {
+            position: absolute;
+            width: min(5vw, 35px); /* আইকনের আকার আরও কমানো হয়েছে */
+            height: min(5vw, 35px); /* আইকনের আকার আরও কমানো হয়েছে */
+            border-radius: 50%; /* বৃত্তাকার */
+            object-fit: contain; /* আইকনকে ফ্রেমের মধ্যে ফিট করা */
+            background-color: rgba(255, 255, 255, 0.05); /* হালকা ব্যাকগ্রাউন্ড */
+            padding: 0.2rem; /* আইকনের চারপাশে প্যাডিং */
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* হালকা শ্যাডো */
+            transition: transform 0.05s ease-out, box-shadow 0.2s ease-in-out; /* মসৃণ চলাচল ও শ্যাডো পরিবর্তনের জন্য */
+            cursor: pointer;
+        }
+
+        .orbiter:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* হোভারে উজ্জ্বল শ্যাডো */
+            transform: scale(1.1); /* হোভারে সামান্য বড় হবে */
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <!-- বাম পাশের কন্টেন্ট -->
+        <div class="left-content">
+            <h1 class="title">ডিজিটাল বিশ্বের কেন্দ্রে স্বাগতম</h1>
+            <p class="subtitle">আমাদের উদ্ভাবনী সমাধানগুলির সাথে আপনার ব্যবসাকে পরবর্তী স্তরে নিয়ে যান। এখানে আপনি আমাদের প্রযুক্তি স্ট্যাক এবং দক্ষতার একটি ভিজ্যুয়াল উপস্থাপনা দেখতে পাবেন।</p>
+        </div>
+
+        <!-- ডান পাশের অ্যানিমেশন কন্টেইনার -->
+        <div class="right-animation">
+            <div class="animation-container" id="animationContainer">
+                <!-- কেন্দ্রীয় ছবি (আপনার নিজের ছবি দিয়ে এটি প্রতিস্থাপন করুন) -->
+                <img src="/assets/images/skpaul.png" alt="Central Image" class="central-image">
+                <!-- কক্ষপথ এবং আইকনগুলি JavaScript দ্বারা গতিশীলভাবে তৈরি হবে -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const animationContainer = document.getElementById('animationContainer');
+            const centralImage = document.querySelector('.central-image');
+
+            // বিভিন্ন কক্ষপথ এবং প্রতিটি কক্ষপথে আইকনের সংখ্যা, গতি এবং আইকনের URL কনফিগার করুন
+            const orbitConfigs = [
+                { radiusFactor: 0.28, speed: 0.004, numOrbiters: 6, icons: [
+                    { src: 'https://img.icons8.com/color/48/000000/react-native.png', title: 'React Native' },
+                    { src: 'https://img.icons8.com/color/48/000000/nodejs.png', title: 'Node.js' },
+                    { src: 'https://img.icons8.com/color/48/000000/javascript.png', title: 'JavaScript' },
+                    { src: 'https://img.icons8.com/color/48/000000/html-5.png', title: 'HTML5' },
+                    { src: 'https://img.icons8.com/color/48/000000/css3.png', title: 'CSS3' },
+                    { src: 'https://img.icons8.com/color/48/000000/tailwind-css.png', title: 'Tailwind CSS' }
+                ]},
+                { radiusFactor: 0.45, speed: 0.0025, numOrbiters: 8, icons: [
+                    { src: 'https://img.icons8.com/color/48/000000/python.png', title: 'Python' },
+                    { src: 'https://img.icons8.com/color/48/000000/docker.png', title: 'Docker' },
+                    { src: 'https://img.icons8.com/color/48/000000/kubernetes.png', title: 'Kubernetes' },
+                    { src: 'https://img.icons8.com/color/48/000000/google-cloud.png', title: 'Google Cloud' },
+                    { src: 'https://img.icons8.com/color/48/000000/aws.png', title: 'AWS' },
+                    { src: 'https://img.icons8.com/color/48/000000/azure.png', title: 'Azure' },
+                    { src: 'https://img.icons8.com/color/48/000000/java.png', title: 'Java' },
+                    { src: 'https://img.icons8.com/color/48/000000/c-plus-plus.png', title: 'C++' }
+                ]},
+                { radiusFactor: 0.65, speed: 0.0015, numOrbiters: 10, icons: [
+                    { src: 'https://img.icons8.com/color/48/000000/mongodb.png', title: 'MongoDB' },
+                    { src: 'https://img.icons8.com/color/48/000000/mysql.png', title: 'MySQL' },
+                    { src: 'https://img.icons8.com/color/48/000000/postgresql.png', title: 'PostgreSQL' },
+                    { src: 'https://img.icons8.com/color/48/000000/redis.png', title: 'Redis' },
+                    { src: 'https://img.icons8.com/color/48/000000/graphql.png', title: 'GraphQL' },
+                    { src: 'https://img.icons8.com/color/48/000000/firebase.png', title: 'Firebase' },
+                    { src: 'https://img.icons8.com/color/48/000000/github.png', title: 'GitHub' },
+                    { src: 'https://img.icons8.com/color/48/000000/jira.png', title: 'Jira' },
+                    { src: 'https://img.icons8.com/color/48/000000/slack.png', title: 'Slack' },
+                    { src: 'https://img.icons8.com/color/48/000000/figma.png', title: 'Figma' }
+                ]},
+                { radiusFactor: 0.85, speed: 0.001, numOrbiters: 12, icons: [
+                    { src: 'https://img.icons8.com/color/48/000000/tensorflow.png', title: 'TensorFlow' },
+                    { src: 'https://img.icons8.com/color/48/000000/pytorch.png', title: 'PyTorch' },
+                    { src: 'https://img.icons8.com/color/48/000000/apache-kafka.png', title: 'Apache Kafka' },
+                    { src: 'https://img.icons8.com/color/48/000000/elastic-search.png', title: 'Elasticsearch' },
+                    { src: 'https://img.icons8.com/color/48/000000/jenkins.png', title: 'Jenkins' },
+                    { src: 'https://img.icons8.com/color/48/000000/ansible.png', title: 'Ansible' },
+                    { src: 'https://img.icons8.com/color/48/000000/terraform.png', title: 'Terraform' },
+                    { src: 'https://img.icons8.com/color/48/000000/webpack.png', title: 'Webpack' },
+                    { src: 'https://img.icons8.com/color/48/000000/babel.png', title: 'Babel' },
+                    { src: 'https://img.icons8.com/color/48/000000/jest.png', title: 'Jest' },
+                    { src: 'https://img.icons8.com/color/48/000000/cypress.png', title: 'Cypress' },
+                    { src: 'https://img.icons8.com/color/48/000000/nginx.png', title: 'Nginx' }
+                ]}
+            ];
+
+            const orbitElements = []; // কক্ষপথ উপাদানগুলি সংরক্ষণ করার জন্য অ্যারে
+
+            // গতিশীলভাবে কক্ষপথ এবং আইকন তৈরি করুন
+            orbitConfigs.forEach((config, orbitIndex) => {
+                const orbitDiv = document.createElement('div');
+                orbitDiv.classList.add('orbit', `orbit-${orbitIndex + 1}`);
+                // ডেটা অ্যাট্রিবিউটে রেডিয়াস ফ্যাক্টর এবং গতি সংরক্ষণ করুন
+                orbitDiv.dataset.radiusFactor = config.radiusFactor;
+                orbitDiv.dataset.speed = config.speed;
+
+                // প্রতিটি কক্ষপথের জন্য আইকন তৈরি করুন
+                for (let i = 0; i < config.numOrbiters; i++) {
+                    const orbiterImg = document.createElement('img');
+                    orbiterImg.classList.add('orbiter', `orbiter-${orbitIndex + 1}-${i + 1}`);
+                    
+                    // আইকন ডেটা থেকে src এবং title ব্যবহার করুন
+                    const iconData = config.icons[i % config.icons.length]; // আইকন অ্যারেতে আইকন কম থাকলে রিপিট হবে
+                    orbiterImg.src = iconData.src; 
+                    orbiterImg.alt = iconData.title || `Icon ${orbitIndex + 1}-${i + 1}`; // alt টেক্সট অ্যাক্সেসিবিলিটির জন্য
+                    orbiterImg.title = iconData.title; // অ্যাক্সেসিবিলিটির জন্য title অ্যাট্রিবিউট
+
+                    // ক্রমানুসারে আইকন সাজানোর জন্য প্রাথমিক কোণ গণনা করুন
+                    const angleIncrement = (2 * Math.PI) / config.numOrbiters;
+                    orbiterImg.dataset.angle = angleIncrement * i; 
+                    
+                    orbiterImg.onerror = function() {
+                        this.src = 'https://placehold.co/35x35/CCCCCC/000000?text=Err'; // যদি ছবি লোড না হয়
+                        this.alt = 'Image load error';
+                        this.title = 'Failed to load icon';
+                    };
+                    orbitDiv.appendChild(orbiterImg);
+                }
+                animationContainer.appendChild(orbitDiv);
+                orbitElements.push(orbitDiv);
+            });
+
+            // অ্যানিমেশন লুপ
+            function animateOrbiters() {
+                // অ্যানিমেশন কন্টেইনারের বর্তমান আকার নিন, প্যাডিং বিবেচনা করে
+                const containerStyle = getComputedStyle(animationContainer);
+                const paddingLeft = parseFloat(containerStyle.paddingLeft);
+                const paddingTop = parseFloat(containerStyle.paddingTop);
+
+                const containerWidth = animationContainer.offsetWidth - (2 * paddingLeft);
+                const containerHeight = animationContainer.offsetHeight - (2 * paddingTop);
+                const minContainerDimension = Math.min(containerWidth, containerHeight);
+
+                orbitElements.forEach(orbitElement => {
+                    const radiusFactor = parseFloat(orbitElement.dataset.radiusFactor);
+                    const speed = parseFloat(orbitElement.dataset.speed);
+
+                    // কন্টেইনারের আকারের উপর ভিত্তি করে গতিশীল রেডিয়াস গণনা করুন
+                    // dynamicRadius হল কক্ষপথের ব্যাসার্ধ, যা animationContainer এর উপলব্ধ স্থানের উপর নির্ভর করে
+                    const dynamicRadius = minContainerDimension * radiusFactor / 2; 
+
+                    // কক্ষপথের আকার এবং অবস্থান আপডেট করুন
+                    orbitElement.style.width = `${dynamicRadius * 2}px`;
+                    orbitElement.style.height = `${dynamicRadius * 2}px`;
+                    orbitElement.style.left = `50%`;
+                    orbitElement.style.top = `50%`;
+                    orbitElement.style.transform = `translate(-50%, -50%)`; // কেন্দ্রিক করুন
+
+                    // প্রতিটি আইকনের অবস্থান আপডেট করুন
+                    Array.from(orbitElement.children).forEach(orbiter => {
+                        let angle = parseFloat(orbiter.dataset.angle);
+
+                        const x = dynamicRadius * Math.cos(angle);
+                        const y = dynamicRadius * Math.sin(angle);
+
+                        // আইকনকে তার কক্ষপথের সাপেক্ষে কেন্দ্রিক করুন
+                        orbiter.style.transform = `translate(${x - orbiter.offsetWidth / 2}px, ${y - orbiter.offsetHeight / 2}px)`;
+
+                        // কোণ আপডেট করুন
+                        orbiter.dataset.angle = angle + speed;
+                    });
+                });
+
+                requestAnimationFrame(animateOrbiters); // পরবর্তী ফ্রেমের জন্য অ্যানিমেশন অনুরোধ করুন
+            }
+
+            animateOrbiters(); // অ্যানিমেশন শুরু করুন
+
+            // উইন্ডোর আকার পরিবর্তনের সাথে সাথে কক্ষপথের আকার আপডেট করার জন্য ইভেন্ট লিসেনার
+            window.addEventListener('resize', () => {
+                // অ্যানিমেশনটি requestAnimationFrame লুপের মধ্যে স্বয়ংক্রিয়ভাবে রেসপনসিভ হবে
+                // তাই এখানে আলাদা করে কিছু করার দরকার নেই, শুধু নিশ্চিত করুন যে CSS ঠিক আছে।
+            });
+        });
+    </script>
+</body>
+</html>

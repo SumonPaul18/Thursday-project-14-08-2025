@@ -1,0 +1,13 @@
+Flask
+Flask-SQLAlchemy
+SQLAlchemy
+Flask-Dance
+Flask-Login
+Werkzeug
+python-dotenv
+itsdangerous
+Flask-Mail
+PyYAML
+openstacksdk
+python-dateutil
+pytz

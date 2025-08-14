@@ -1,0 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+::after,
+::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.35s ease-in-out;
+    background-color: #fff;
+    min-width: 0;
+}
+
+#sidebar {
+    width: 70px;
+    min-width: 70px;
+    z-index: 1000;
+    transition: all .25s ease-in-out;
+    background-color: #0e2238;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar.expand {
+    width: 260px;
+    min-width: 260px;
+}
+
+.toggle-btn {
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+    padding: 1rem 1.5rem;
+}
+
+.toggle-btn i {
+    font-size: 1.5rem;
+    color: #FFF;
+}
+
+.sidebar-logo {
+    margin: auto 0;
+}
+
+.sidebar-logo a {
+    color: #FFF;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+#sidebar:not(.expand) .sidebar-logo,
+#sidebar:not(.expand) a.sidebar-link span {
+    display: none;
+}
+
+#sidebar.expand .sidebar-logo,
+#sidebar.expand a.sidebar-link span {
+    animation: fadeIn .25s ease;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.sidebar-nav {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.sidebar-item {
+    text-align: left;
+    padding: 8px 0 8px 0;
+    position: relative;
+    font-weight: 600;
+    font-size: 1.08rem;
+    letter-spacing: 0.01em;
+    transition: background 0.2s;
+}
+
+a.sidebar-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    color: #fff;
+    transition: background 0.2s, color 0.2s;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 1.08rem;
+}
+
+.sidebar-link i,
+.dropdown-item i,
+.sidebar-icon {
+    font-size: 1.2rem;
+    margin-right: 12px;
+    margin-left: 0;
+    vertical-align: middle;
+}
+
+.sidebar-icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    margin-right: 12px;
+    margin-left: 0;
+    vertical-align: middle;
+}
+
+.sidebar-text {
+    font-size: 1.08rem;
+    margin-left: 2px;
+    font-weight: 500;
+}
+
+.sidebar-subnav {
+    list-style: none;
+    padding-left: 0;
+    margin: 6px 0 0 0;
+    background: #16243a;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+.sidebar-subnav.show {
+    max-height: 500px;
+    padding-bottom: 8px;
+}
+
+.sidebar-subitem {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-subitem .sidebar-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #b0bec5;
+    font-size: 0.98rem;
+    padding: 8px 18px;
+    border-radius: 6px;
+    margin: 2px 0;
+    background: transparent;
+    transition: background 0.2s, color 0.2s;
+}
+
+.sidebar-subitem .sidebar-link:hover {
+    background: #223a5f;
+    color: #fff;
+}
+
+.sidebar-subitem .sidebar-icon {
+    margin-right: 10px;
+    margin-left: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.sidebar-divider {
+    border: none;
+    border-top: 1px solid #263a54;
+    margin: 10px 0 0 0;
+}
+
+.navbar {
+    background-color: #f5f5f5;
+    box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .1);
+}
+
+.navbar-expand .navbar-collapse {
+    min-width: 200px;
+}
+
+.avatar {
+    height: 40px;
+    width: 40px;
+}
+
+
+
+@media (min-width: 768px) {}
+
+.card-header {
+    font-weight: bold;
+}
+
+.card-title {
+    font-size: 1.25rem;
+}
+
+.progress-bar {
+    font-size: 0.875rem;
+}
+
+/* Rounded corners for sidebar and navbar */
+/*
+#sidebar, .navbar {
+    border-radius: 15px; 
+} 
+*/
+
+/* instance_detail.html পেজের জন্য স্টাইল */
+.instance-detail {
+    display: flex;
+    justify-content: center; /* পেজের মাঝে কার্ডটিকে সেন্টার করার জন্য */
+}
+
+.instance-detail-card {
+    background-color: #f8f9fa; /* হালকা ব্যাকগ্রাউন্ড কালার */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* হালকা শ্যাডো */
+    width: 80%; /* কার্ডের প্রস্থ */
+    max-width: 700px; /* সর্বোচ্চ প্রস্থ */
+}
+
+.instance-detail-card .card-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #343a40; /* গাঢ় টেক্সট কালার */
+    margin-bottom: 20px;
+    text-align: center; /* টাইটেল সেন্টার */
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: baseline; /* লেবেল ও ভ্যালু বেসলাইনে এলাইন */
+}
+
+.detail-label {
+    font-weight: bold;
+    width: 120px; /* লেবেলের জন্য ফিক্সড প্রস্থ */
+    color: #495057; /* লেবেল টেক্সট কালার */
+    margin-right: 10px;
+    text-align: right; /* লেবেল ডানদিকে এলাইন */
+}
+
+.detail-value {
+    color: #212529; /* ভ্যালু টেক্সট কালার */
+    flex-grow: 1; /* ভ্যালু জায়গা নিতে পারবে */
+}
+
+.detail-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #dee2e6; /* সেকশনগুলোর মধ্যে ডিভাইডার লাইন */
+}
+
+.detail-section h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #343a40;
+    margin-bottom: 15px;
+}
+
+.detail-section ul {
+    list-style-type: square; /* লিস্ট স্টাইল */
+    padding-left: 25px;
+}
+
+.detail-section li {
+    margin-bottom: 8px;
+    color: #212529;
+}
+
+.button-group {
+    margin-top: 25px;
+    text-align: center; /* বাটন গ্রুপ সেন্টার */
+}
+
+.button-group .btn {
+    margin: 0 10px; /* বাটনগুলোর মধ্যে মার্জিন */
+}
+
+.sidebar-parent {
+  cursor: pointer;
+}
+
+.sidebar-arrow {
+  font-size: 1rem;
+  transition: transform 0.2s;
+}
+
+.sidebar-parent[aria-expanded="true"] .sidebar-arrow {
+  transform: rotate(180deg);
+}
+
+.sidebar-subnav.collapse {
+  transition: height 0.3s;
+  background: #132a47;
+  border-radius: 8px;
+  margin-top: 4px;
+}

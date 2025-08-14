@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sumon's Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-80 backdrop-blur-sm z-50 py-4 shadow-lg">
+        <nav class="container mx-auto flex justify-between items-center px-5">
+            <a href="#hero" class="text-2xl font-bold text-teal-400">Sumon</a>
+            <ul class="flex space-x-6">
+                <li><a href="#about" class="text-gray-300 hover:text-teal-400 transition-colors duration-300">About</a></li>
+                <li><a href="#skills" class="text-gray-300 hover:text-teal-400 transition-colors duration-300">Skills</a></li>
+                <li><a href="#certificates" class="text-gray-300 hover:text-teal-400 transition-colors duration-300">Certificates</a></li>
+                <li><a href="#work-history" class="text-gray-300 hover:text-teal-400 transition-colors duration-300">Work</a></li>
+                <li><a href="#education" class="text-gray-300 hover:text-teal-400 transition-colors duration-300">Education</a></li>
+                <li><a href="#projects" class="text-gray-300 hover:text-teal-400 transition-colors duration-300">Projects</a></li>
+                <li><a href="#blog" class="text-gray-300 hover:text-teal-400 transition-colors duration-300">Blog</a></li>
+                <li><a href="#contact" class="text-gray-300 hover:text-teal-400 transition-colors duration-300">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative flex flex-col md:flex-row items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+        <div class="left-content z-20 flex-1 flex flex-col justify-center items-center md:items-start text-center md:text-left px-6 py-12">
+            <h1 class="text-white mb-4 leading-tight text-4xl md:text-5xl font-extrabold">
+                Hi, I'm <span id="heroName" class="text-teal-400"></span>
+            </h1>
+            <p id="subtitle" class="text-gray-300 mb-8 h-8 text-lg md:text-xl"></p>
+            <div class="flex flex-col md:flex-row gap-4">
+                <a id="downloadCvBtn" href="#" target="_blank" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg">
+                    Download CV
+                </a>
+                <a id="contactMeBtn" href="#contact" class="bg-transparent border-2 border-teal-500 text-teal-300 hover:bg-teal-500 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg">
+                    Contact Me
+                </a>
+            </div>
+        </div>
+        <div class="right-animation">
+            <div id="centerImageWrapper" class="center-image-wrapper">
+                <img id="userImage" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Sumon CV" class="center-image object-cover rounded-full border-4 border-teal-400 shadow-2xl" />
+            </div>
+            <div class="logo-container" id="logoContainer"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-gray-900">
+        <div class="container mx-auto text-center">
+            <h2>About Me</h2>
+            <p id="aboutDescription" class="max-w-3xl mx-auto leading-relaxed"></p>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="bg-gray-800">
+        <div class="container mx-auto text-center">
+            <h2>My Skills</h2>
+            <div id="skillsGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                <!-- Skills will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="bg-gray-900">
+        <div class="container mx-auto text-center">
+            <h2>Certificates</h2>
+            <div id="certificatesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Certificates will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Work History Section -->
+    <section id="work-history" class="bg-gray-800">
+        <div class="container mx-auto">
+            <h2>Work History</h2>
+            <div id="workHistoryContainer" class="max-w-3xl mx-auto relative">
+                <!-- Work experiences will be dynamically added here -->
+            </div>
+        </diV>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="bg-gray-900">
+        <div class="container mx-auto">
+            <h2>Education</h2>
+            <div id="educationHistoryContainer" class="max-w-3xl mx-auto relative">
+                <!-- Education details will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="bg-gray-800">
+        <div class="container mx-auto text-center">
+            <h2>My Projects</h2>
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Projects will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Posts Section -->
+    <section id="blog" class="bg-gray-900">
+        <div class="container mx-auto text-center">
+            <h2>Latest Blog Posts</h2>
+            <div id="blogPostsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Blog posts will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gray-800">
+        <div class="container mx-auto text-center">
+            <h2>Contact Me</h2>
+            <form id="contactForm" class="max-w-lg mx-auto bg-gray-900 p-8 rounded-lg shadow-lg">
+                <div class="mb-4">
+                    <input type="text" name="name" placeholder="Your Name" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                </div>
+                <div class="mb-4">
+                    <input type="email" name="email" placeholder="Your Email" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                </div>
+                <div class="mb-4">
+                    <textarea name="message" rows="5" placeholder="Your Message" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500" required></textarea>
+                </div>
+                <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg">
+                    Send Message
+                </button>
+                <p id="statusMessage" class="mt-4 text-sm text-gray-400"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8 text-center text-gray-400 text-sm">
+        <div class="container mx-auto">
+            <p>&copy; <span id="currentYear"></span> <span id="footerName"></span>. All rights reserved.</p>
+            <p>Email: <span id="footerEmail"></span> | Phone: <span id="footerPhone"></span> | Location: <span id="footerLocation"></span></p>
+            <div class="flex justify-center space-x-4 mt-4 text-xl">
+                <a id="githubLink" href="#" target="_blank" class="hover:text-teal-400 transition-colors duration-300"><i class="fab fa-github"></i></a>
+                <a id="linkedinLink" href="#" target="_blank" class="hover:text-teal-400 transition-colors duration-300"><i class="fab fa-linkedin"></i></a>
+                <a id="twitterLink" href="#" target="_blank" class="hover:text-teal-400 transition-colors duration-300"><i class="fab fa-twitter"></i></a>
+                <a id="facebookLink" href="#" target="_blank" class="hover:text-teal-400 transition-colors duration-300"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load config.js and script.js -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
