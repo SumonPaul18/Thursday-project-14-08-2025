@@ -1,30 +1,110 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%);
+    }
+    .card {
+        border-radius: 1.25rem;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 24px rgba(60,72,88,0.08);
+        border: none;
+        overflow: hidden;
+    }
+    .card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 8px 32px rgba(60,72,88,0.16);
+    }
+    .card-img-top {
+        height: 220px;
+        object-fit: contain;
+        background: #f4f6fb;
+        padding: 1.5rem;
+    }
+    .card-title {
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: #1a237e;
+    }
+    .btn-primary, .btn-success {
+        border-radius: 2rem;
+        font-weight: 600;
+        padding: 0.75rem 2rem;
+        box-shadow: 0 2px 8px rgba(60,72,88,0.08);
+        transition: background 0.2s, color 0.2s;
+    }
+    .btn-primary:hover, .btn-success:hover {
+        background: linear-gradient(90deg, #1a73e8 0%, #43a047 100%);
+        color: #fff;
+    }
+    .icon-box {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 2px 12px rgba(60,72,88,0.06);
+        padding: 2rem 1rem;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .icon-box:hover {
+        box-shadow: 0 6px 24px rgba(60,72,88,0.12);
+        transform: translateY(-4px) scale(1.04);
+    }
+    .icon-box i {
+        background: linear-gradient(135deg, #1a73e8 0%, #43a047 100%);
+        color: #fff !important;
+        border-radius: 50%;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 8px rgba(60,72,88,0.10);
+    }
+    .featured-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: linear-gradient(90deg, #ff9800 0%, #ffc107 100%);
+        color: #fff;
+        font-size: 0.9rem;
+        font-weight: 700;
+        padding: 0.4rem 1rem;
+        border-radius: 2rem;
+        box-shadow: 0 2px 8px rgba(255,152,0,0.15);
+        letter-spacing: 1px;
+    }
+    @media (max-width: 991px) {
+        .card-img-top { height: 160px; }
+    }
+    @media (max-width: 767px) {
+        .row.g-4 > [class^="col-"] {
+            margin-bottom: 2rem;
+        }
+        .card-img-top { height: 120px; }
+    }
+</style>
 <div class="container my-5">
-    <h1 class="text-center mb-4">Explore Paulco Cloud Products</h1>
-    <h2 class="text-center my-4">Start with one of these featured services or browse the catalog below.</h2>
-    <div class="row g-4">
+    <h1 class="text-center mb-3 fw-bold" style="letter-spacing:1px;">🚀 Explore Paulco Cloud Products</h1>
+    <h2 class="text-center my-4 text-secondary" style="font-size:1.3rem;">Start with one of these featured services or browse the catalog below.</h2>
+    <div class="row g-4 position-relative">
         <!-- AWS Products -->
-        <div class="col-lg-6">
-            <div class="card shadow-sm border-light h-100">
+        <div class="col-lg-6 position-relative">
+            <div class="card shadow-sm h-100">
+                <span class="featured-badge">Featured</span>
                 <img src="{{ url_for('static', filename='images/aws.png') }}" class="card-img-top" alt="AWS Products">
                 <div class="card-body">
                     <h5 class="card-title">Amazon Web Services (AWS)</h5>
                     <p class="card-text">Explore a comprehensive suite of cloud services including computing power, storage options, and networking capabilities.</p>
-                    <a href="#" class="btn btn-primary">View AWS Products</a>
+                    <a href="#" class="btn btn-primary mt-2">View AWS Products</a>
                 </div>
             </div>
         </div>
 
         <!-- GCP Products -->
         <div class="col-lg-6">
-            <div class="card shadow-sm border-light h-100">
+            <div class="card shadow-sm h-100">
                 <img src="{{ url_for('static', filename='images/gcp.png') }}" class="card-img-top" alt="GCP Products">
                 <div class="card-body">
                     <h5 class="card-title">Google Cloud Platform (GCP)</h5>
                     <p class="card-text">Leverage Google’s powerful infrastructure to build, deploy, and scale applications in the cloud.</p>
-                    <a href="#" class="btn btn-primary">View GCP Products</a>
+                    <a href="#" class="btn btn-primary mt-2">View GCP Products</a>
                 </div>
             </div>
         </div>
@@ -32,28 +112,26 @@
 
     <hr class="my-5">
 
-    <h2 class="text-center my-4">Why Choose Our Cloud Solutions?</h2>
+    <h2 class="text-center my-4 fw-bold" style="letter-spacing:1px;">Why Choose Our Cloud Solutions?</h2>
     <div class="row text-center g-4">
         <div class="col-md-4">
             <div class="icon-box">
-                <i class="fas fa-lock fa-3x mb-3 text-primary"></i>
-                <h4>Security</h4>
+                <i class="fas fa-lock fa-3x mb-3"></i>
+                <h4 class="fw-bold">Security</h4>
                 <p>Robust security measures to protect your data and applications.</p>
             </div>
         </div>
-
         <div class="col-md-4">
             <div class="icon-box">
-                <i class="fas fa-chart-line fa-3x mb-3 text-primary"></i>
-                <h4>Scalability</h4>
+                <i class="fas fa-chart-line fa-3x mb-3"></i>
+                <h4 class="fw-bold">Scalability</h4>
                 <p>Easily scale your resources up or down based on demand.</p>
             </div>
         </div>
-
         <div class="col-md-4">
             <div class="icon-box">
-                <i class="fas fa-clock fa-3x mb-3 text-primary"></i>
-                <h4>Reliability</h4>
+                <i class="fas fa-clock fa-3x mb-3"></i>
+                <h4 class="fw-bold">Reliability</h4>
                 <p>High availability and redundancy to ensure your services are always online.</p>
             </div>
         </div>
@@ -61,8 +139,9 @@
 
     <!-- Call to Action -->
     <div class="text-center my-5">
-        <h3>Ready to Get Started?</h3>
-        <a href="{{ url_for('contact') }}" class="btn btn-success btn-lg">Contact Us</a>
+        <h3 class="fw-bold mb-3">Ready to Get Started?</h3>
+        <a href="{{ url_for('contact') }}" class="btn btn-success btn-lg shadow">Contact Us</a>
+        <p class="mt-3 text-muted">Our cloud experts are here to help you every step of the way.</p>
     </div>
 </div>
 {% endblock %}

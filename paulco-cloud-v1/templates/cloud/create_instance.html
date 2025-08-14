@@ -1,45 +1,138 @@
-{% extends 'base.html' %}
+{% extends "sidebar.html" %}
 
 {% block content %}
-<h2>Create Instance</h2>
-<form method="post">
-    <div class="form-group">
-        <label for="name">Instance Name</label>
-        <input type="text" class="form-control" id="name" name="name" required>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+    .cloud-form-container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        padding: 2.5rem 2rem 2rem 2rem;
+        animation: fadeIn 0.7s;
+    }
+    .cloud-form-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #202124;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+    }
+    .cloud-form-label {
+        font-weight: 600;
+        color: #444;
+    }
+    .cloud-form-group {
+        margin-bottom: 1.3rem;
+    }
+    .cloud-form-control, .cloud-form-select {
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        padding: 0.7rem 1rem;
+        font-size: 1rem;
+        background: #f8fafc;
+        transition: border-color 0.2s;
+    }
+    .cloud-form-control:focus, .cloud-form-select:focus {
+        border-color: #4285f4;
+        outline: none;
+        background: #fff;
+    }
+    .cloud-form-btn {
+        width: 100%;
+        padding: 0.9rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #4285f4 0%, #34a853 100%);
+        color: #fff;
+        border: none;
+        transition: background 0.2s, box-shadow 0.2s;
+        box-shadow: 0 2px 8px rgba(66,133,244,0.08);
+    }
+    .cloud-form-btn:disabled {
+        background: #bcdffb;
+        color: #fff;
+    }
+    .cloud-form-btn:hover:not(:disabled) {
+        background: linear-gradient(90deg, #357ae8 0%, #2e7d32 100%);
+        box-shadow: 0 4px 16px rgba(52,168,83,0.12);
+    }
+    .cloud-form-helper {
+        font-size: 0.95rem;
+        color: #888;
+        margin-top: 0.2rem;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px);}
+        to { opacity: 1; transform: translateY(0);}
+    }
+</style>
+
+<div class="cloud-form-container">
+    <div class="cloud-form-title">
+        <i class="fas fa-cloud"></i> Create Cloud Instance
     </div>
-    <div class="form-group">
-        <label for="image">Image</label>
-        <select class="form-control" id="image" name="image" required>
-            {% for image in images %}
-            <option value="{{ image.id }}">{{ image.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="flavor">Flavor</label>
-        <select class="form-control" id="flavor" name="flavor" required>
-            {% for flavor in flavors %}
-            <option value="{{ flavor.id }}">{{ flavor.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="network">Network</label>
-        <select class="form-control" id="network" name="network" required>
-            {% for network in networks %}
-            <option value="{{ network.id }}">{{ network.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="keypair_name">Keypair Name (Optional, create new if name provided)</label>
-        <input type="text" class="form-control" id="keypair_name" name="keypair_name">
-    </div>
-    <div class="form-group">
-        <label for="volume_size">Volume Size (GB, Optional, to create and attach volume)</label>
-        <input type="number" class="form-control" id="volume_size" name="volume_size" min="1">
-        <small class="form-text text-muted">Specify size in GB to create and attach a volume during instance creation.</small>
-    </div>
-    <button type="submit" class="btn btn-primary">Create Instance</button>
-</form>
+    <form method="post" autocomplete="off">
+        <div class="cloud-form-group">
+            <label for="name" class="cloud-form-label">Instance Name <span class="text-danger">*</span></label>
+            <input type="text" class="cloud-form-control" id="name" name="name" required placeholder="e.g. web-server-01">
+        </div>
+        <div class="cloud-form-group">
+            <label for="image" class="cloud-form-label">Image <span class="text-danger">*</span></label>
+            <select class="cloud-form-select" id="image" name="image" required>
+                <option value="" disabled selected>Select an image</option>
+                {% for image in images %}
+                <option value="{{ image.id }}">{{ image.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="cloud-form-group">
+            <label for="flavor" class="cloud-form-label">Flavor <span class="text-danger">*</span></label>
+            <select class="cloud-form-select" id="flavor" name="flavor" required>
+                <option value="" disabled selected>Select a flavor</option>
+                {% for flavor in flavors %}
+                <option value="{{ flavor.id }}">{{ flavor.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="cloud-form-group">
+            <label for="network" class="cloud-form-label">Network <span class="text-danger">*</span></label>
+            <select class="cloud-form-select" id="network" name="network" required>
+                <option value="" disabled selected>Select a network</option>
+                {% for network in networks %}
+                <option value="{{ network.id }}">{{ network.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="cloud-form-group">
+            <label for="keypair_name" class="cloud-form-label">Keypair Name <span class="cloud-form-helper">(Optional)</span></label>
+            <input type="text" class="cloud-form-control" id="keypair_name" name="keypair_name" placeholder="Create new if name provided">
+            <div class="cloud-form-helper">Provide a name to create a new keypair, or leave blank to use default.</div>
+        </div>
+        <div class="cloud-form-group">
+            <label for="volume_size" class="cloud-form-label">Volume Size (GB) <span class="cloud-form-helper">(Optional)</span></label>
+            <input type="number" class="cloud-form-control" id="volume_size" name="volume_size" min="1" placeholder="e.g. 10">
+            <div class="cloud-form-helper">Specify size in GB to create and attach a volume during instance creation.</div>
+        </div>
+        <button type="submit" class="cloud-form-btn" id="create-btn">
+            <i class="fas fa-plus-circle"></i> Create Instance
+        </button>
+    </form>
+</div>
+
+<script>
+    // Interactive feedback on submit
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const btn = document.getElementById('create-btn');
+        form.addEventListener('submit', function() {
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Creating...';
+        });
+    });
+</script>
 {% endblock %}

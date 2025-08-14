@@ -77,16 +77,16 @@
       url: task
 
 - name: Bills
-  icon_url: icons/settings.png
+  icon_url: icons/bills.svg
   icon_size: 24px
   url: settings
 
 - name: Supports
-  icon_url: icons/settings.png
+  icon_url: icons/supports.svg
   icon_size: 24px
   url: settings
 
 - name: Setting
-  icon_url: icons/settings.png
+  icon_url: icons/settings.svg
   icon_size: 24px
   url: settings
